@@ -221,6 +221,10 @@ app.get("/offers", async (req, res) => {
     }
 
     const offers = await Offer.find(filters)
+      .populate({
+        path: "owner",
+        select: "account",
+      })
       .sort(sortObject)
       .limit(limit)
       .skip((page - 1) * limit);
