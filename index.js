@@ -236,7 +236,11 @@ app.all("*", (req, res) => {
   res.status(400).json("Route not found");
 });
 
-// Server started on port 3000
-app.listen(3000, () => {
-  console.log("Server has started ! 🔥");
+// On prod mode
+const PORT = process.env.PORT;
+// On dev mode
+// PORT=3000
+
+app.listen(PORT, () => {
+  console.log("Serveur Vinted online on PORT => ", PORT);
 });
