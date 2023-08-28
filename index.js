@@ -223,10 +223,11 @@ app.get("/offers", async (req, res) => {
     const offers = await Offer.find(filters)
       .sort(sortObject)
       .limit(limit)
-      .skip((page - 1) * limit)
-      .select("product_name product_price -_id");
+      .skip((page - 1) * limit);
 
-    return res.status(200).json(offers);
+    const count = await Offer.countDocuments(filters);
+
+    return res.status(200).json({ count: count, offers: offers });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
